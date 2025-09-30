@@ -203,20 +203,70 @@
     </div>
 
     <script>
-        // 자바스크립트 코드는 이전과 동일하게 작동합니다.
-        const formModal=document.getElementById("formModal"),successModal=document.getElementById("successModal"),preRegBtn=document.getElementById("preRegBtn"),closeFormBtn=document.getElementById("closeForm"),preRegForm=document.getElementById("preRegForm");preRegBtn.onclick=function(){formModal.style.display="block"},closeFormBtn.onclick=function(){formModal.style.display="none"},window.onclick=function(e){e.target==formModal&&(formModal.style.display="none"),e.target==successModal&&(successModal.style.display="none")},preRegForm.addEventListener("submit",function(e){e.preventDefault();const o=document.getElementById("name").value,t=document.getElementById("gender").value,n=document.getElementById("age").value,l=document.getElementById("school").value,c=document.getElementById("email").value;o&&t&&n&&l&&c?(formModal.style.display="none",successModal.style.display="block"):alert("모든 항목을 입력해주세요.")});
-    </script>
+        // 필요한 모든 요소를 한번에 가져옵니다.
+        const formModal = document.getElementById('formModal');
+        const successModal = document.getElementById('successModal');
+        const preRegBtn = document.getElementById('preRegBtn');
+        const closeFormBtn = document.getElementById('closeForm');
+        const preRegForm = document.getElementById('preRegForm');
 
-    <script>
-        const trackButton = document.getElementById('preRegBtn');
-        trackButton.addEventListener('click', function() {
+        // 1. '사전 신청하기' 버튼을 클릭했을 때의 동작
+        preRegBtn.onclick = function() {
+            // 팝업창을 띄웁니다.
+            formModal.style.display = "block";
+
+            // "버튼 클릭" 이벤트를 Google 애널리틱스로 보냅니다.
             gtag('event', 'pre_register_click', {
                 'event_category': 'registration',
                 'event_label': '사전 신청 버튼'
             });
+        }
+
+        // 2. 팝업창의 'x' 버튼을 눌렀을 때의 동작
+        closeFormBtn.onclick = function() {
+            formModal.style.display = "none";
+        }
+
+        // 3. 팝업창 바깥 회색 영역을 눌렀을 때의 동작
+        window.onclick = function(event) {
+            if (event.target == formModal) {
+                formModal.style.display = "none";
+            }
+            if (event.target == successModal) {
+                successModal.style.display = "none";
+            }
+        }
+
+        // 4. 폼(입력란)을 최종적으로 '제출'했을 때의 동작
+        preRegForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 페이지가 새로고침되는 것을 막습니다.
+            
+            // 모든 입력값이 채워졌는지 확인합니다.
+            const name = document.getElementById('name').value;
+            const gender = document.getElementById('gender').value;
+            const age = document.getElementById('age').value;
+            const school = document.getElementById('school').value;
+            const email = document.getElementById('email').value;
+
+            if (!name || !gender || !age || !school || !email) {
+                alert('모든 항목을 입력해주세요.');
+                return;
+            }
+
+            // "신청 완료" 이벤트를 Google 애널리틱스로 보냅니다.
+            gtag('event', 'registration_complete', {
+                'event_category': 'registration',
+                'event_label': '최종 신청 완료'
+            });
+
+            // 입력 폼 팝업을 닫고, 완료 메시지 팝업을 띄웁니다.
+            formModal.style.display = "none";
+            successModal.style.display = "block";
         });
     </script>
 
 </body>
 </html>
+
+
 
