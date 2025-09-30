@@ -129,6 +129,14 @@
         /* 모달 스타일 (동일) */
         .modal{display:none;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.5)}.modal-content{background-color:#fefefe;margin:10% auto;padding:30px;border:1px solid #888;width:80%;max-width:400px;border-radius:15px;text-align:center;position:relative}.close-btn{color:#aaa;position:absolute;top:10px;right:20px;font-size:28px;font-weight:bold;cursor:pointer}input,select{width:calc(100% - 24px);padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:1em;font-family:'Noto Sans KR',sans-serif}
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4018LH294V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4018LH294V');
+    </script>
 </head>
 <body>
 
@@ -199,5 +207,16 @@
         const formModal=document.getElementById("formModal"),successModal=document.getElementById("successModal"),preRegBtn=document.getElementById("preRegBtn"),closeFormBtn=document.getElementById("closeForm"),preRegForm=document.getElementById("preRegForm");preRegBtn.onclick=function(){formModal.style.display="block"},closeFormBtn.onclick=function(){formModal.style.display="none"},window.onclick=function(e){e.target==formModal&&(formModal.style.display="none"),e.target==successModal&&(successModal.style.display="none")},preRegForm.addEventListener("submit",function(e){e.preventDefault();const o=document.getElementById("name").value,t=document.getElementById("gender").value,n=document.getElementById("age").value,l=document.getElementById("school").value,c=document.getElementById("email").value;o&&t&&n&&l&&c?(formModal.style.display="none",successModal.style.display="block"):alert("모든 항목을 입력해주세요.")});
     </script>
 
+    <script>
+        const trackButton = document.getElementById('preRegBtn');
+        trackButton.addEventListener('click', function() {
+            gtag('event', 'pre_register_click', {
+                'event_category': 'registration',
+                'event_label': '사전 신청 버튼'
+            });
+        });
+    </script>
+
 </body>
 </html>
+
