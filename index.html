@@ -128,6 +128,43 @@
 
         /* 모달 스타일 (동일) */
         .modal{display:none;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.5)}.modal-content{background-color:#fefefe;margin:10% auto;padding:30px;border:1px solid #888;width:80%;max-width:400px;border-radius:15px;text-align:center;position:relative}.close-btn{color:#aaa;position:absolute;top:10px;right:20px;font-size:28px;font-weight:bold;cursor:pointer}input,select{width:calc(100% - 24px);padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:1em;font-family:'Noto Sans KR',sans-serif}
+    
+        /* --- 반응형 UI를 위한 미디어 쿼리 (이 부분이 추가되었습니다!) --- */
+        @media (max-width: 768px) {
+            body {
+                /* 모바일에서는 화면 전체를 꽉 채우도록 조정 */
+                padding: 20px 0; 
+                align-items: flex-start;
+            }
+
+            .container {
+                /* 너비를 90%로 하고, 좌우 여백을 줄입니다. */
+                width: 90%;
+                padding: 30px 20px;
+                box-shadow: none; /* 모바일에서는 그림자 효과 제거 */
+            }
+
+            h1 {
+                /* 제목 글씨 크기를 줄입니다. */
+                font-size: 1.8em;
+            }
+
+            .event-announcement {
+                /* 이벤트 안내 문구 글씨 크기를 줄입니다. */
+                font-size: 1.2em;
+            }
+
+            .hook-text, .catchphrase, .description, .event-details p {
+                /* 나머지 텍스트들의 글씨 크기를 줄입니다. */
+                font-size: 1em;
+            }
+
+            .cta-button {
+                /* 버튼 글씨 크기를 줄입니다. */
+                font-size: 1.1em;
+            }
+        }
+
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4018LH294V"></script>
     <script>
@@ -267,6 +304,7 @@
 
 </body>
 </html>
+
 
 
 
