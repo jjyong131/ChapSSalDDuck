@@ -218,18 +218,20 @@
             <span class="close-btn" id="closeForm">&times;</span>
             <h2>사전 신청</h2>
             <p>행사 정보를 가장 먼저 받아보세요!</p>
+            
             <form id="preRegForm">
-                <input type="text" id="name" placeholder="이름" required>
-                <select id="gender" required>
+                <input type="text" id="name" name="Name" placeholder="이름" required>
+                <select id="gender" name="Gender" required>
                     <option value="" disabled selected>성별</option>
                     <option value="male">남성</option>
                     <option value="female">여성</option>
                 </select>
-                <input type="number" id="age" placeholder="나이 (숫자만 입력)" required>
-                <input type="text" id="school" placeholder="학교" required>
-                <input type="email" id="email" placeholder="이메일" required>
+                <input type="number" id="age" name="Age" placeholder="나이 (숫자만 입력)" required>
+                <input type="text" id="school" name="School" placeholder="학교" required>
+                <input type="email" id="email" name="Email" placeholder="이메일" required>
                 <button type="submit" class="cta-button">신청 완료</button>
             </form>
+
         </div>
     </div>
 
@@ -322,7 +324,6 @@
 
 </body>
 </html>
-
 
 
 
