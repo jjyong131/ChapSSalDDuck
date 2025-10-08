@@ -188,7 +188,7 @@
             찰떡궁합🍡 설렘 가득한 자리를 마련했어요 🥰
         </p>
 
-        <h2 class="event-announcement">₊˚ෆ 10월 24일 대망의 로테이션 소개팅 ₊˚ෆ</h2>
+        <h2 class="event-announcement">₊˚ෆ 10월 17일 대망의 로테이션 소개팅 ₊˚ෆ</h2>
         
         <div class="description">
             사전 신청해주신 분들께는 나와 이상형의 <b>외모 유형 / MBTI / 에겐-테토 / 가치관</b>을 파악할 수 있는 구글 폼 ✏️을 보내드려요! 
@@ -197,7 +197,7 @@
         
         <div class="event-details">
             <h2>✨ 행사 정보 ✨</h2>
-            <p><strong>일시</strong>: 10월 24일 (금) 19시 ~ 22시</p>
+            <p><strong>일시</strong>: 10월 17일 (금) 19시 ~ 22시</p>
             <p><strong>장소</strong>: 강남역 근처 분위기 좋은 카페</p>
             <p><strong>내용</strong>: 맛있는 커피☕랑 쿠키🍪 먹으며 도란도란 이야기 나누기</p>
             <p><strong>참가비</strong>: 15,900원</p>
@@ -229,6 +229,7 @@
                 <input type="number" id="age" name="Age" placeholder="나이 (숫자만 입력)" required>
                 <input type="text" id="school" name="School" placeholder="학교" required>
                 <input type="email" id="email" name="Email" placeholder="이메일" required>
+                <input type="tel" id="phone" name="Phone" placeholder="전화번호 (010-1234-5678)" required>
                 <button type="submit" class="cta-button">신청 완료</button>
             </form>
 
@@ -253,14 +254,8 @@
 
         // 1. '사전 신청하기' 버튼을 클릭했을 때의 동작
         preRegBtn.onclick = function() {
-            // 팝업창을 띄웁니다.
             formModal.style.display = "block";
-
-            // "버튼 클릭" 이벤트를 Google 애널리틱스로 보냅니다.
-            gtag('event', 'pre_register_click', {
-                'event_category': 'registration',
-                'event_label': '사전 신청 버튼'
-            });
+            gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
         }
 
         // 2. 팝업창의 'x' 버튼을 눌렀을 때의 동작
@@ -280,7 +275,7 @@
 
         // 4. 폼(입력란)을 최종적으로 '제출'했을 때의 동작
         preRegForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // 페이지가 새로고침되는 것을 막습니다.
+            event.preventDefault();
             
             // 모든 입력값이 채워졌는지 확인합니다.
             const name = document.getElementById('name').value;
@@ -288,8 +283,9 @@
             const age = document.getElementById('age').value;
             const school = document.getElementById('school').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value; // 전화번호 값 가져오기
 
-            if (!name || !gender || !age || !school || !email) {
+            if (!name || !gender || !age || !school || !email || !phone) { // 전화번호 확인 로직 추가
                 alert('모든 항목을 입력해주세요.');
                 return;
             }
@@ -302,17 +298,10 @@
                 .then(response => {
                     console.log('Success!', response);
                     
-                    // "신청 완료" 이벤트를 Google 애널리틱스로 보냅니다.
-                    gtag('event', 'registration_complete', {
-                        'event_category': 'registration',
-                        'event_label': '최종 신청 완료'
-                    });
+                    gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
 
-                    // 입력 폼 팝업을 닫고, 완료 메시지 팝업을 띄웁니다.
                     formModal.style.display = "none";
                     successModal.style.display = "block";
-
-                    // 폼 초기화 (선택 사항)
                     preRegForm.reset();
                 })
                 .catch(error => {
@@ -324,6 +313,7 @@
 
 </body>
 </html>
+
 
 
 
