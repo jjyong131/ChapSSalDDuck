@@ -136,6 +136,14 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(216, 27, 96, 0.5);
         }
+        
+        /* [추가됨] 비활성화된 버튼 스타일 */
+        .cta-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
 
         /* 모달 스타일 (동일) */
         .modal{display:none;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.5)}.modal-content{background-color:#fefefe;margin:10% auto;padding:30px;border:1px solid #888;width:80%;max-width:400px;border-radius:15px;text-align:center;position:relative}.close-btn{color:#aaa;position:absolute;top:10px;right:20px;font-size:28px;font-weight:bold;cursor:pointer}input,select{width:calc(100% - 24px);padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:1em;font-family:'Noto Sans KR',sans-serif}
@@ -276,6 +284,9 @@
         // 4. 폼(입력란)을 최종적으로 '제출'했을 때의 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
+
+            // [추가] 폼 안의 제출 버튼을 가져옵니다.
+            const submitButton = preRegForm.querySelector('button[type="submit"]');
             
             // 모든 입력값이 채워졌는지 확인합니다.
             const name = document.getElementById('name').value;
@@ -283,12 +294,16 @@
             const age = document.getElementById('age').value;
             const school = document.getElementById('school').value;
             const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value; // 전화번호 값 가져오기
+            const phone = document.getElementById('phone').value;
 
-            if (!name || !gender || !age || !school || !email || !phone) { // 전화번호 확인 로직 추가
+            if (!name || !gender || !age || !school || !email || !phone) {
                 alert('모든 항목을 입력해주세요.');
                 return;
             }
+
+            // [추가] 버튼을 비활성화하고 텍스트를 변경하여 중복 클릭을 방지합니다.
+            submitButton.disabled = true;
+            submitButton.textContent = '처리 중...';
 
             // Google Sheets로 데이터 전송
             const scriptURL = 'https://script.google.com/macros/s/AKfycbzfauh4MrisD0fbomjgz-8k9SzDiqDmcbXBVty7vAAsViI-IMznd_RK7F_9MODSYDrx/exec';
@@ -303,10 +318,18 @@
                     formModal.style.display = "none";
                     successModal.style.display = "block";
                     preRegForm.reset();
+
+                    // [추가] 성공 시 버튼을 원래 상태로 되돌립니다.
+                    submitButton.disabled = false;
+                    submitButton.textContent = '신청 완료';
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
                     alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+                    
+                    // [추가] 실패 시에도 버튼을 원래 상태로 되돌려 다시 시도할 수 있게 합니다.
+                    submitButton.disabled = false;
+                    submitButton.textContent = '신청 완료';
                 });
         });
     </script>
