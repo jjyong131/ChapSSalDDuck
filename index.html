@@ -82,6 +82,7 @@
                 photoUploadArea.style.display = 'block';
             } else {
                 photoUploadArea.style.display = 'none';
+                document.getElementById('photo').value = ''; // 성별 변경 시 파일 선택 초기화
             }
         });
 
@@ -100,62 +101,62 @@
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
-
-            // [추가] 제출 중 버튼 비활성화
             submitButton.disabled = true;
             submitButton.textContent = '처리 중...';
 
             const fileInput = document.getElementById('photo');
             const file = fileInput.files[0];
-            const reader = new FileReader();
 
-            // 남성이고, 파일이 선택된 경우에만 파일을 읽음
             if (genderSelect.value === 'male' && file) {
+                const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = function() {
-                    sendData({
-                        photoData: reader.result,
-                        photoName: file.name,
-                        photoType: file.type
-                    });
+                reader.onload = () => sendData({
+                    photoData: reader.result,
+                    photoName: file.name,
+                    photoType: file.type
+                });
+                reader.onerror = () => {
+                    alert('사진 파일을 읽는 데 실패했습니다.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = '신청 완료';
                 };
             } else {
-                // 파일이 없는 경우 바로 데이터 전송
                 sendData({});
             }
         });
 
         function sendData(photoInfo) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbykNHM1rzdEEENScXs90l-Bqg6iQtaZY8hhKt9nP5sNN0-jS-fYpk6ClTovFjdxadaz/exec'; // 본인 URL 확인!
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxLEaWyD5SISk2biQ8Q4ZnXP3XSjBD-BxSWCYUqpiQA6Oi-OuP_1jeNHV5AlhRIncaX/exec'; // 본인 URL 확인!
             const submitButton = preRegForm.querySelector('button[type="submit"]');
             
             const formData = new FormData(preRegForm);
             let data = {};
             formData.forEach((value, key) => data[key] = value);
-            
-            // 사진 정보 추가
             data = { ...data, ...photoInfo };
 
             fetch(scriptURL, {
                 method: 'POST',
                 body: JSON.stringify(data),
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'no-cors' // Google Apps Script와 통신 시 CORS 문제를 피하기 위해 유지
+                // [핵심 수정] mode: 'no-cors'를 제거하여 정상적인 응답을 기다립니다.
             })
-            .then(response => {
-                console.log('Success!', response);
-                gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
-                formModal.style.display = "none";
-                successModal.style.display = "block";
-                preRegForm.reset();
-                photoUploadArea.style.display = 'none';
+            .then(res => res.json()) // 응답을 JSON 형태로 해석합니다.
+            .then(result => {
+                console.log('Success!', result);
+                if(result.result === 'success') {
+                    gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
+                    formModal.style.display = "none";
+                    successModal.style.display = "block";
+                    preRegForm.reset();
+                    photoUploadArea.style.display = 'none';
+                } else {
+                    throw new Error(result.error || '알 수 없는 오류가 발생했습니다.');
+                }
             })
             .catch(error => {
                 console.error('Error!', error.message);
-                alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+                alert('신청서 제출에 실패했습니다: ' + error.message);
             })
             .finally(() => {
-                // [추가] 성공/실패와 관계없이 버튼을 다시 활성화
                 submitButton.disabled = false;
                 submitButton.textContent = '신청 완료';
             });
@@ -163,6 +164,7 @@
     </script>
 </body>
 </html>
+
 
 
 
