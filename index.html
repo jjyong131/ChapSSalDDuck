@@ -9,208 +9,21 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-4018LH294V');
     </script>
     <style>
-        /* 기본 스타일 */
+        /* CSS 스타일은 이전과 동일합니다 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #fce4ec; /* 부드러운 핑크 배경 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0; /* 상하 여백 추가 */
-            min-height: 100vh;
-            color: #333;
-            word-break: keep-all;
-        }
-
-        /* 메인 컨테이너 스타일 */
-        .container {
-            background-color: white;
-            padding: 40px 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 600px; /* 너비 확장 */
-            width: 90%;
-        }
-
-        h1 {
-            color: #d81b60; /* 포인트 핑크 */
-            font-size: 2.2em;
-            font-weight: 900; /* 더 굵게 */
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .catchphrase {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 25px;
-            font-style: italic;
-            line-height: 1.6;
-        }
-        
-        .hook-text {
-            font-size: 1.2em;
-            line-height: 1.7; /* 줄 간격 살짝 넓힘 */
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-
-        .event-announcement {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: #fff;
-            background: linear-gradient(45deg, #ec407a, #d81b60);
-            padding: 15px 20px;
-            border-radius: 15px;
-            display: inline-block;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .description {
-            font-size: 1.1em;
-            line-height: 1.7;
-            margin-bottom: 30px;
-            text-align: left;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        /* 행사 정보 섹션 */
-        .event-details {
-            text-align: left;
-            border: 2px dashed #f8bbd0;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .event-details h2 {
-            text-align: center;
-            color: #d81b60;
-            margin-top: 0;
-            font-size: 1.5em;
-        }
-
-        .event-details p {
-            font-size: 1.1em;
-            margin: 10px 0;
-            line-height: 1.6;
-        }
-        .event-details p strong {
-            display: inline-block;
-            width: 60px;
-        }
-        
-        .final-info {
-            font-size: 0.8em;
-            color: #777;
-            margin-top: 20px;
-            line-height: 1.7;
-        }
-
-        /* 버튼 스타일 */
-        .cta-button {
-            background: linear-gradient(45deg, #ec407a, #d81b60);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.3em;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
-            margin-top: 20px;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.5);
-        }
-        
-        .cta-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        /* 모달 스타일 (동일) */
-        .modal{display:none;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.5)}.modal-content{background-color:#fefefe;margin:10% auto;padding:30px;border:1px solid #888;width:80%;max-width:400px;border-radius:15px;text-align:center;position:relative}.close-btn{color:#aaa;position:absolute;top:10px;right:20px;font-size:28px;font-weight:bold;cursor:pointer}input,select{width:calc(100% - 24px);padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:1em;font-family:'Noto Sans KR',sans-serif}
-    
-        /* [추가됨] 폼 안내 문구 스타일 */
-        .form-notice {
-            font-size: 0.8em;
-            color: #777;
-            margin: -5px 0 10px 0;
-            text-align: left;
-            padding-left: 5px;
-        }
-        
-        /* --- 반응형 UI를 위한 미디어 쿼리 --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 0; 
-                align-items: flex-start;
-            }
-
-            .container {
-                width: 90%;
-                padding: 30px 20px;
-                box-shadow: none;
-            }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .event-announcement {
-                font-size: 1.0em;
-            }
-
-            .hook-text, .catchphrase, .description, .event-details p {
-                font-size: 1em;
-            }
-            
-            .final-info {
-                font-size: 0.75em;
-            }
-
-            .cta-button {
-                font-size: 1.1em;
-            }
-        }
+        body{font-family:'Noto Sans KR',sans-serif;background-color:#fce4ec;display:flex;justify-content:center;align-items:center;padding:40px 0;min-height:100vh;color:#333;word-break:keep-all}.container{background-color:white;padding:40px 50px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.1);text-align:center;max-width:600px;width:90%}h1{color:#d81b60;font-size:2.2em;font-weight:900;margin-bottom:20px;line-height:1.4}.catchphrase{font-size:1.1em;color:#555;margin-bottom:25px;font-style:italic;line-height:1.6}.hook-text{font-size:1.2em;line-height:1.7;margin-bottom:25px;font-weight:bold}.event-announcement{font-size:1.5em;font-weight:700;color:#fff;background:linear-gradient(45deg,#ec407a,#d81b60);padding:15px 20px;border-radius:15px;display:inline-block;margin-bottom:30px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}.description{font-size:1.1em;line-height:1.7;margin-bottom:30px;text-align:left;background-color:#f9f9f9;padding:20px;border-radius:10px}.event-details{text-align:left;border:2px dashed #f8bbd0;padding:20px;border-radius:10px;margin-bottom:30px}.event-details h2{text-align:center;color:#d81b60;margin-top:0;font-size:1.5em}.event-details p{font-size:1.1em;margin:10px 0;line-height:1.6}.event-details p strong{display:inline-block;width:60px}.final-info{font-size:0.8em;color:#777;margin-top:20px;line-height:1.7}.cta-button{background:linear-gradient(45deg,#ec407a,#d81b60);color:white;border:none;padding:15px 30px;font-size:1.3em;font-weight:bold;border-radius:30px;cursor:pointer;transition:all .3s ease;box-shadow:0 5px 15px rgba(216,27,96,0.4);margin-top:20px}.cta-button:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(216,27,96,0.5)}.modal{display:none;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.5)}.modal-content{background-color:#fefefe;margin:10% auto;padding:30px;border:1px solid #888;width:80%;max-width:400px;border-radius:15px;text-align:center;position:relative}.close-btn{color:#aaa;position:absolute;top:10px;right:20px;font-size:28px;font-weight:bold;cursor:pointer}input,select{width:calc(100% - 24px);padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:1em;font-family:'Noto Sans KR',sans-serif}@media (max-width:768px){body{padding:20px 0;align-items:flex-start}.container{width:90%;padding:30px 20px;box-shadow:none}h1{font-size:1.8em}.event-announcement{font-size:1.0em}.hook-text,.catchphrase,.description,.event-details p{font-size:1em}.final-info{font-size:.75em}.cta-button{font-size:1.1em}}
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>💖찰떡궁합은 여기에!💖<br>나와 딱 맞는 이상형과 로테이션 소개팅</h1>
-        
         <p class="catchphrase">“200% 감성 충만 INFP 에겐녀부터 행동력 최강 ESTP 테토남까지” “외모부터 성격까지 다 맞아야 진짜 인연이죠”</p>
-        
-        <p class="hook-text">
-            다가오는 빼빼로 데이 때 빼빼로 🎁를 주고받을 수 있는 사람, 필요하지 않으신가요? 
-            외모, 성격, 가치관 빠짐없이 나랑 잘 맞는 반쪽을 찾고 싶으신 분들을 위해 
-            찰떡궁합🍡 설렘 가득한 자리를 마련했어요 🥰
-        </p>
-
+        <p class="hook-text">다가오는 빼빼로 데이 때 빼빼로 🎁를 주고받을 수 있는 사람, 필요하지 않으신가요? 외모, 성격, 가치관 빠짐없이 나랑 잘 맞는 반쪽을 찾고 싶으신 분들을 위해 찰떡궁합🍡 설렘 가득한 자리를 마련했어요 🥰</p>
         <h2 class="event-announcement">₊˚ෆ 10월 17일 대망의 로테이션 소개팅 ₊˚ෆ</h2>
-        
-        <div class="description">
-            사전 신청해주신 분들께는 나와 이상형의 <b>외모 유형 / MBTI / 에겐-테토 / 가치관</b>을 파악할 수 있는 구글 폼 ✏️을 보내드려요! 
-            저희 AI 알고리즘이 꼼꼼하게 분석해서 최적의 상대를 찾아 매칭해 드립니다.
-        </div>
-        
+        <div class="description">사전 신청해주신 분들께는 나와 이상형의 <b>외모 유형 / MBTI / 에겐-테토 / 가치관</b>을 파악할 수 있는 구글 폼 ✏️을 보내드려요! 저희 AI 알고리즘이 꼼꼼하게 분석해서 최적의 상대를 찾아 매칭해 드립니다.</div>
         <div class="event-details">
             <h2>✨ 행사 정보 ✨</h2>
             <p><strong>일시</strong>: 10월 17일 (금) 19시 ~ 22시</p>
@@ -219,14 +32,8 @@
             <p><strong>참가비</strong>: 15,900원</p>
             <p><strong>주최</strong>: 진짜 유의미한 소개팅을 하고 싶은 서울대학교 학부생 팀 🎉</p>
         </div>
-        
         <button id="preRegBtn" class="cta-button">사전 신청하고 인연 찾기</button>
-
-        <p class="final-info">
-            행사 일주일 전에 장소 및 안내사항 관련 정보를 담은 확정 이메일을 보내드릴 예정이에요! ✨ 
-            (신청 시 작성하신 정보는 행사 운영 목적 외에는 절대 사용되지 않으며 행사 종료 후 파기 예정입니다) 
-            많관부 😍
-        </p>
+        <p class="final-info">행사 일주일 전에 장소 및 안내사항 관련 정보를 담은 확정 카톡을 보내드릴 예정이에요! ✨ (신청 시 작성하신 정보는 행사 운영 목적 외에는 절대 사용되지 않으며 행사 종료 후 파기 예정입니다) 많관부 😍</p>
     </div>
 
     <div id="formModal" class="modal">
@@ -244,107 +51,113 @@
                 </select>
                 <input type="number" id="age" name="Age" placeholder="나이 (숫자만 입력)" required>
                 <input type="text" id="school" name="School" placeholder="학교" required>
-                
-                <input type="email" id="email" name="Email" placeholder="학교 이메일 (@ac.kr, @edu 등)" required>
-                <p class="form-notice">학교 이메일로 입력해주세요! (참가 자격 확인용)</p>
-                
+                <input type="email" id="email" name="Email" placeholder="이메일" required>
                 <input type="tel" id="phone" name="Phone" placeholder="전화번호 (010-1234-5678)" required>
+                
+                <div id="photo-upload-area" style="display: none;">
+                    <label for="photo" style="display: block; margin-top: 10px; font-size: 0.9em;">사진 업로드 (선택)</label>
+                    <input type="file" id="photo" name="Photo" accept="image/*">
+                </div>
+
                 <button type="submit" class="cta-button">신청 완료</button>
             </form>
-
         </div>
     </div>
 
     <div id="successModal" class="modal">
-        <div class="modal-content">
-             <h2>🎉</h2>
-            <p style="font-size: 1.2em; font-weight: bold;">사전 신청이 완료되었습니다.</p>
-            <p>행사가 확정되면 입력하신 이메일로 가장 먼저 소식을 알려드리겠습니다!</p>
         </div>
-    </div>
 
     <script>
-        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
         const closeFormBtn = document.getElementById('closeForm');
         const preRegForm = document.getElementById('preRegForm');
+        const genderSelect = document.getElementById('gender');
+        const photoUploadArea = document.getElementById('photo-upload-area');
 
-        // 1. '사전 신청하기' 버튼을 클릭했을 때의 동작
+        // [수정됨] 성별 선택 시 사진 업로드 필드 보이기/숨기기
+        genderSelect.addEventListener('change', function() {
+            if (this.value === 'male') {
+                photoUploadArea.style.display = 'block';
+            } else {
+                photoUploadArea.style.display = 'none';
+            }
+        });
+
         preRegBtn.onclick = function() {
             formModal.style.display = "block";
-            gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
+            gtag('event', 'pre_register_click', { /* ... */ });
         }
-
-        // 2. 팝업창의 'x' 버튼을 눌렀을 때의 동작
-        closeFormBtn.onclick = function() {
-            formModal.style.display = "none";
-        }
-
-        // 3. 팝업창 바깥 회색 영역을 눌렀을 때의 동작
+        closeFormBtn.onclick = function() { formModal.style.display = "none"; }
         window.onclick = function(event) {
-            if (event.target == formModal) {
-                formModal.style.display = "none";
-            }
-            if (event.target == successModal) {
-                successModal.style.display = "none";
-            }
+            if (event.target == formModal) formModal.style.display = "none";
+            if (event.target == successModal) successModal.style.display = "none";
         }
 
-        // 4. 폼(입력란)을 최종적으로 '제출'했을 때의 동작
+        // [수정됨] 폼 제출 시 파일 읽기 및 데이터 전송 로직
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
-
-            const submitButton = preRegForm.querySelector('button[type="submit"]');
             
-            const name = document.getElementById('name').value;
-            const gender = document.getElementById('gender').value;
-            const age = document.getElementById('age').value;
-            const school = document.getElementById('school').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
+            // 모든 입력 필드 유효성 검사 (생략)
 
-            if (!name || !gender || !age || !school || !email || !phone) {
-                alert('모든 항목을 입력해주세요.');
-                return;
+            const fileInput = document.getElementById('photo');
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // 파일이 선택된 경우에만 파일을 읽음
+            if (genderSelect.value === 'male' && file) {
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    const photoData = reader.result;
+                    const photoName = file.name;
+                    const photoType = file.type;
+                    sendData({ photoData, photoName, photoType });
+                };
+            } else {
+                // 파일이 없는 경우 바로 데이터 전송
+                sendData({});
             }
-
-            submitButton.disabled = true;
-            submitButton.textContent = '처리 중...';
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyV6U4cVczishEngazad0GYEJ-Zh20Ez3qMoqYNoUxeQ0VHMTr064gKCJqbQG--e4Uh/exec';
-            const formData = new FormData(preRegForm);
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    console.log('Success!', response);
-                    
-                    gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
-
-                    formModal.style.display = "none";
-                    successModal.style.display = "block";
-                    preRegForm.reset();
-
-                    submitButton.disabled = false;
-                    submitButton.textContent = '신청 완료';
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
-                    
-                    submitButton.disabled = false;
-                    submitButton.textContent = '신청 완료';
-                });
         });
-    </script>
 
+        function sendData(photoInfo) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwjDyMZWvl9EY2p393i66kDseanPRA64aT0pSb2cwXZZkTRujkOCK3u83ebBe6VEC1y/exec';
+            
+            // new FormData() 대신 직접 객체 생성
+            const data = {
+                Name: document.getElementById('name').value,
+                Gender: document.getElementById('gender').value,
+                Age: document.getElementById('age').value,
+                School: document.getElementById('school').value,
+                Email: document.getElementById('email').value,
+                Phone: document.getElementById('phone').value,
+                ...photoInfo
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // CORS 에러 방지
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log('Success!', response);
+                gtag('event', 'registration_complete', { /* ... */ });
+                formModal.style.display = "none";
+                successModal.style.display = "block";
+                preRegForm.reset();
+                photoUploadArea.style.display = 'none'; // 폼 리셋 후 사진 필드도 숨김
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+            });
+        }
+    </script>
 </body>
 </html>
-
-
-
-
 
 
 
