@@ -76,7 +76,7 @@
         const genderSelect = document.getElementById('gender');
         const photoUploadArea = document.getElementById('photo-upload-area');
 
-        // [수정됨] 성별 선택 시 사진 업로드 필드 보이기/숨기기
+        // 성별 선택 시 사진 업로드 필드 보이기/숨기기
         genderSelect.addEventListener('change', function() {
             if (this.value === 'male') {
                 photoUploadArea.style.display = 'block';
@@ -85,9 +85,10 @@
             }
         });
 
+        // 팝업창 열고 닫는 기능
         preRegBtn.onclick = function() {
             formModal.style.display = "block";
-            gtag('event', 'pre_register_click', { /* ... */ });
+            gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
         }
         closeFormBtn.onclick = function() { formModal.style.display = "none"; }
         window.onclick = function(event) {
@@ -95,24 +96,28 @@
             if (event.target == successModal) successModal.style.display = "none";
         }
 
-        // [수정됨] 폼 제출 시 파일 읽기 및 데이터 전송 로직
+        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            
-            // 모든 입력 필드 유효성 검사 (생략)
+            const submitButton = preRegForm.querySelector('button[type="submit"]');
+
+            // [추가] 제출 중 버튼 비활성화
+            submitButton.disabled = true;
+            submitButton.textContent = '처리 중...';
 
             const fileInput = document.getElementById('photo');
             const file = fileInput.files[0];
             const reader = new FileReader();
 
-            // 파일이 선택된 경우에만 파일을 읽음
+            // 남성이고, 파일이 선택된 경우에만 파일을 읽음
             if (genderSelect.value === 'male' && file) {
                 reader.readAsDataURL(file);
                 reader.onload = function() {
-                    const photoData = reader.result;
-                    const photoName = file.name;
-                    const photoType = file.type;
-                    sendData({ photoData, photoName, photoType });
+                    sendData({
+                        photoData: reader.result,
+                        photoName: file.name,
+                        photoType: file.type
+                    });
                 };
             } else {
                 // 파일이 없는 경우 바로 데이터 전송
@@ -121,38 +126,38 @@
         });
 
         function sendData(photoInfo) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwjDyMZWvl9EY2p393i66kDseanPRA64aT0pSb2cwXZZkTRujkOCK3u83ebBe6VEC1y/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbykNHM1rzdEEENScXs90l-Bqg6iQtaZY8hhKt9nP5sNN0-jS-fYpk6ClTovFjdxadaz/exec'; // 본인 URL 확인!
+            const submitButton = preRegForm.querySelector('button[type="submit"]');
             
-            // new FormData() 대신 직접 객체 생성
-            const data = {
-                Name: document.getElementById('name').value,
-                Gender: document.getElementById('gender').value,
-                Age: document.getElementById('age').value,
-                School: document.getElementById('school').value,
-                Email: document.getElementById('email').value,
-                Phone: document.getElementById('phone').value,
-                ...photoInfo
-            };
+            const formData = new FormData(preRegForm);
+            let data = {};
+            formData.forEach((value, key) => data[key] = value);
+            
+            // 사진 정보 추가
+            data = { ...data, ...photoInfo };
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // CORS 에러 방지
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors' // Google Apps Script와 통신 시 CORS 문제를 피하기 위해 유지
             })
             .then(response => {
                 console.log('Success!', response);
-                gtag('event', 'registration_complete', { /* ... */ });
+                gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
                 formModal.style.display = "none";
                 successModal.style.display = "block";
                 preRegForm.reset();
-                photoUploadArea.style.display = 'none'; // 폼 리셋 후 사진 필드도 숨김
+                photoUploadArea.style.display = 'none';
             })
             .catch(error => {
                 console.error('Error!', error.message);
                 alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+            })
+            .finally(() => {
+                // [추가] 성공/실패와 관계없이 버튼을 다시 활성화
+                submitButton.disabled = false;
+                submitButton.textContent = '신청 완료';
             });
         }
     </script>
