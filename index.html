@@ -74,41 +74,39 @@
         </div>
 
     <script>
-        // 필요한 모든 요소를 가져옵니다.
+        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
         const closeFormBtn = document.getElementById('closeForm');
         const preRegForm = document.getElementById('preRegForm');
         const genderSelect = document.getElementById('gender');
-        const statusSelect = document.getElementById('status'); // [추가됨] 직업 선택 요소
+        const statusSelect = document.getElementById('status');
         const photoUploadArea = document.getElementById('photo-upload-area');
-        const photoLabel = document.querySelector('#photo-upload-area label'); // [추가됨] 파일 업로드 라벨 요소
-        const photoInput = document.getElementById('photo'); // [추가됨] 파일 인풋 요소
+        const photoLabel = document.querySelector('#photo-upload-area label');
+        const photoInput = document.getElementById('photo');
 
-        // [수정됨] 파일 업로드 필드 보이기/숨기기 및 필수 여부 동적 변경 로직
+        // 파일 업로드 필드 보이기/숨기기 및 필수 여부 동적 변경 로직
         function updatePhotoUploadVisibility() {
             const gender = genderSelect.value;
             const status = statusSelect.value;
-
             const isMaleStudent = gender === 'male' && status === 'student';
             const isWorker = status === 'worker';
 
             if (isMaleStudent) {
                 photoLabel.textContent = '사진 업로드 (선택)';
-                photoInput.required = false; // 남성/대학생은 사진이 필수가 아님
+                photoInput.required = false;
                 photoUploadArea.style.display = 'block';
             } else if (isWorker) {
                 photoLabel.textContent = '명함 사진 업로드 (필수)';
-                photoInput.required = true; // 직장인은 명함이 필수
+                photoInput.required = true;
                 photoUploadArea.style.display = 'block';
             } else {
                 photoUploadArea.style.display = 'none';
-                photoInput.required = false; // 숨겨질 때는 필수가 아님
+                photoInput.required = false;
             }
         }
 
-        // 성별 또는 직업이 변경될 때마다 함수 호출
         genderSelect.addEventListener('change', updatePhotoUploadVisibility);
         statusSelect.addEventListener('change', updatePhotoUploadVisibility);
 
@@ -123,7 +121,7 @@
             if (event.target == successModal) successModal.style.display = "none";
         }
 
-        // 폼 제출 시 동작 (이하 코드는 이전과 거의 동일하게 잘 작동합니다)
+        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
@@ -168,6 +166,10 @@
 
             fetch(scriptURL, {
                 method: 'POST',
+                // [핵심 수정] 데이터 형식을 알려주는 헤더를 다시 추가합니다.
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(data),
             })
             .then(res => res.json())
@@ -193,8 +195,11 @@
             });
         }
     </script>
+
 </body>
 </html>
+
+
 
 
 
