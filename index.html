@@ -74,7 +74,6 @@
         </div>
 
     <script>
-        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
@@ -86,7 +85,6 @@
         const photoLabel = document.querySelector('#photo-upload-area label');
         const photoInput = document.getElementById('photo');
 
-        // [복원됨] 파일 업로드 필드 보이기/숨기기 함수
         function updatePhotoUploadVisibility() {
             const gender = genderSelect.value;
             const status = statusSelect.value;
@@ -110,24 +108,16 @@
         genderSelect.addEventListener('change', updatePhotoUploadVisibility);
         statusSelect.addEventListener('change', updatePhotoUploadVisibility);
 
-        // [복원됨] 팝업창을 열고 닫는 핵심 기능
         preRegBtn.onclick = function() {
             formModal.style.display = "block";
             gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
         }
-        closeFormBtn.onclick = function() {
-            formModal.style.display = "none";
-        }
+        closeFormBtn.onclick = function() { formModal.style.display = "none"; }
         window.onclick = function(event) {
-            if (event.target == formModal) {
-                formModal.style.display = "none";
-            }
-            if (event.target == successModal) {
-                successModal.style.display = "none";
-            }
+            if (event.target == formModal) formModal.style.display = "none";
+            if (event.target == successModal) successModal.style.display = "none";
         }
 
-        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
@@ -162,7 +152,7 @@
         });
 
         function sendData(photoInfo) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyf51NxG7ZdbXljNkHpGm4vp8hb9JBmshbb_Ru6vBh90YC0wwJs92i07ms6PFMzmhJe/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx6Q1Aqo4Y9qZYQcncz4TFDAb-ASvpVCEYhE4zKXEsce5BesdxftX-yYXwwxA27HLsF/exec';
             const submitButton = preRegForm.querySelector('button[type="submit"]');
             
             const formData = new FormData(preRegForm);
@@ -172,11 +162,15 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
+                // CORS 문제를 피하기 위해 mode:'no-cors'는 절대 사용하지 않습니다.
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`서버 응답 오류: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(result => {
                 if(result.result === 'success') {
                     console.log('Success!', result);
@@ -201,6 +195,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
