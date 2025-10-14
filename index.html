@@ -74,6 +74,7 @@
         </div>
 
     <script>
+        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
@@ -85,14 +86,48 @@
         const photoLabel = document.querySelector('#photo-upload-area label');
         const photoInput = document.getElementById('photo');
 
-        function updatePhotoUploadVisibility() { /* ... 이전과 동일 ... */ }
+        // [복원됨] 파일 업로드 필드 보이기/숨기기 함수
+        function updatePhotoUploadVisibility() {
+            const gender = genderSelect.value;
+            const status = statusSelect.value;
+            const isMaleStudent = gender === 'male' && status === 'student';
+            const isWorker = status === 'worker';
+
+            if (isMaleStudent) {
+                photoLabel.textContent = '사진 업로드 (선택)';
+                photoInput.required = false;
+                photoUploadArea.style.display = 'block';
+            } else if (isWorker) {
+                photoLabel.textContent = '명함 사진 업로드 (필수)';
+                photoInput.required = true;
+                photoUploadArea.style.display = 'block';
+            } else {
+                photoUploadArea.style.display = 'none';
+                photoInput.required = false;
+            }
+        }
+
         genderSelect.addEventListener('change', updatePhotoUploadVisibility);
         statusSelect.addEventListener('change', updatePhotoUploadVisibility);
 
-        preRegBtn.onclick = function() { /* ... 이전과 동일 ... */ }
-        closeFormBtn.onclick = function() { /* ... 이전과 동일 ... */ }
-        window.onclick = function(event) { /* ... 이전과 동일 ... */ }
+        // [복원됨] 팝업창을 열고 닫는 핵심 기능
+        preRegBtn.onclick = function() {
+            formModal.style.display = "block";
+            gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
+        }
+        closeFormBtn.onclick = function() {
+            formModal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == formModal) {
+                formModal.style.display = "none";
+            }
+            if (event.target == successModal) {
+                successModal.style.display = "none";
+            }
+        }
 
+        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
@@ -116,7 +151,11 @@
                     photoName: file.name,
                     photoType: file.type
                 });
-                reader.onerror = () => { /* ... 이전과 동일 ... */ };
+                reader.onerror = () => {
+                    alert('파일을 읽는 데 실패했습니다.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = '신청 완료';
+                };
             } else {
                 sendData({});
             }
@@ -133,7 +172,7 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'cors', // [핵심 수정] CORS 모드로 명시
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             })
@@ -141,7 +180,7 @@
             .then(result => {
                 if(result.result === 'success') {
                     console.log('Success!', result);
-                    gtag('event', 'registration_complete', { /* ... */ });
+                    gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
                     formModal.style.display = "none";
                     successModal.style.display = "block";
                     preRegForm.reset();
@@ -162,6 +201,7 @@
     </script>
 </body>
 </html>
+
 
 
 
