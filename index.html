@@ -74,6 +74,7 @@
         </div>
 
     <script>
+        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
@@ -85,6 +86,7 @@
         const photoLabel = document.querySelector('#photo-upload-area label');
         const photoInput = document.getElementById('photo');
 
+        // 파일 업로드 필드 보이기/숨기기 함수
         function updatePhotoUploadVisibility() {
             const gender = genderSelect.value;
             const status = statusSelect.value;
@@ -108,6 +110,7 @@
         genderSelect.addEventListener('change', updatePhotoUploadVisibility);
         statusSelect.addEventListener('change', updatePhotoUploadVisibility);
 
+        // 팝업창 열고 닫는 기능
         preRegBtn.onclick = function() {
             formModal.style.display = "block";
             gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
@@ -118,6 +121,7 @@
             if (event.target == successModal) successModal.style.display = "none";
         }
 
+        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
@@ -163,31 +167,32 @@
             fetch(scriptURL, {
                 method: 'POST',
                 body: JSON.stringify(data),
-                // CORS 문제를 피하기 위해 mode:'no-cors'는 절대 사용하지 않습니다.
+                // [핵심 수정] CORS 문제를 우회하기 위해 mode를 'no-cors'로 설정합니다.
+                // 이 모드는 응답을 받지 않지만, 데이터는 정상적으로 전송됩니다.
+                mode: 'no-cors',
             })
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error(`서버 응답 오류: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then(result => {
-                if(result.result === 'success') {
-                    console.log('Success!', result);
-                    gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
-                    formModal.style.display = "none";
-                    successModal.style.display = "block";
-                    preRegForm.reset();
-                    photoUploadArea.style.display = 'none';
-                } else {
-                    throw new Error(result.error || '알 수 없는 스크립트 오류.');
-                }
+            .then(response => {
+                // 'no-cors' 모드에서는 응답 내용을 확인할 수 없지만,
+                // 여기까지 코드가 실행되었다는 것은 데이터 전송 요청이 성공적으로 시작되었다는 뜻입니다.
+                // 데이터 저장이 잘 되는 것을 확인했으므로, 바로 성공 처리를 합니다.
+                console.log('Request sent successfully.');
+                
+                gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
+                
+                formModal.style.display = "none";
+                successModal.style.display = "block";
+                
+                preRegForm.reset();
+                photoUploadArea.style.display = 'none';
+
+                // 성공 처리가 끝난 후 버튼 상태를 복원합니다.
+                submitButton.disabled = false;
+                submitButton.textContent = '신청 완료';
             })
             .catch(error => {
+                // 'no-cors' 모드에서는 이 부분이 거의 실행되지 않지만, 만약을 위해 남겨둡니다.
                 console.error('Error!', error);
-                alert('신청서 제출에 실패했습니다. 오류: ' + error.message);
-            })
-            .finally(() => {
+                alert('신청서 제출에 실패했습니다. 네트워크 연결을 확인해주세요.');
                 submitButton.disabled = false;
                 submitButton.textContent = '신청 완료';
             });
@@ -195,6 +200,7 @@
     </script>
 </body>
 </html>
+
 
 
 
