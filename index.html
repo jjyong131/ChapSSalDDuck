@@ -74,7 +74,6 @@
         </div>
 
     <script>
-        // 필요한 모든 요소를 한번에 가져옵니다.
         const formModal = document.getElementById('formModal');
         const successModal = document.getElementById('successModal');
         const preRegBtn = document.getElementById('preRegBtn');
@@ -86,7 +85,6 @@
         const photoLabel = document.querySelector('#photo-upload-area label');
         const photoInput = document.getElementById('photo');
 
-        // 파일 업로드 필드 보이기/숨기기 및 필수 여부 동적 변경 로직
         function updatePhotoUploadVisibility() {
             const gender = genderSelect.value;
             const status = statusSelect.value;
@@ -110,7 +108,6 @@
         genderSelect.addEventListener('change', updatePhotoUploadVisibility);
         statusSelect.addEventListener('change', updatePhotoUploadVisibility);
 
-        // 팝업창 열고 닫는 기능
         preRegBtn.onclick = function() {
             formModal.style.display = "block";
             gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
@@ -121,7 +118,6 @@
             if (event.target == successModal) successModal.style.display = "none";
         }
 
-        // 폼 제출 시 동작
         preRegForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const submitButton = preRegForm.querySelector('button[type="submit"]');
@@ -156,7 +152,7 @@
         });
 
         function sendData(photoInfo) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzVbj0Zp1yhy-DkLemTDd0sG-FxcqEqn01uE6QG6f-S8m3zT284VmBdv-vAFa9zoCM/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwEDYnpaknSWmQvJtDgb67mCzvlMstALmvqlxNfXc4x7u1GsFLl65i5OHfxebvVHQ/exec';
             const submitButton = preRegForm.querySelector('button[type="submit"]');
             
             const formData = new FormData(preRegForm);
@@ -166,14 +162,19 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                // [핵심 수정] 데이터 형식을 알려주는 헤더를 다시 추가합니다.
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+                // mode: 'no-cors' 제거
             })
-            .then(res => res.json())
+            .then(res => {
+                // 응답이 성공(200 OK)이 아닌 경우, 네트워크 수준의 에러로 간주
+                if (!res.ok) {
+                    throw new Error(`네트워크 응답이 올바르지 않습니다: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(result => {
+                // 스크립트가 성공 메시지를 보냈는지 확인
                 if(result.result === 'success') {
                     console.log('Success!', result);
                     gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
@@ -182,12 +183,14 @@
                     preRegForm.reset();
                     photoUploadArea.style.display = 'none';
                 } else {
-                    throw new Error(result.error || '알 수 없는 오류가 발생했습니다.');
+                    // 스크립트 내부에서 발생한 오류
+                    throw new Error(result.error || '알 수 없는 스크립트 오류.');
                 }
             })
             .catch(error => {
+                // 네트워크 요청 실패 또는 위에서 발생한 모든 오류를 여기서 처리
                 console.error('Error!', error);
-                alert('신청서 제출에 실패했습니다: ' + error.message);
+                alert('신청서 제출에 실패했습니다. 오류: ' + error.message);
             })
             .finally(() => {
                 submitButton.disabled = false;
@@ -195,9 +198,11 @@
             });
         }
     </script>
-
 </body>
 </html>
+
+
+
 
 
 
