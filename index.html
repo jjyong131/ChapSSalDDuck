@@ -71,7 +71,12 @@
     </div>
 
     <div id="successModal" class="modal">
-        </div>
+    <div class="modal-content">
+         <h2>🎉</h2>
+        <p style="font-size: 1.2em; font-weight: bold;">사전 신청이 완료되었습니다.</p>
+        <p>행사가 확정되면 입력하신 이메일로 가장 먼저 소식을 알려드리겠습니다!</p>
+    </div>
+</div>
 
     <script>
         // 필요한 모든 요소를 한번에 가져옵니다.
@@ -158,7 +163,7 @@
         });
 
         function sendData(photoInfo) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwEDYnpaknSWmQvJtDgb67mCzvlMstALmvqlxNfXc4x7u1GsFLl65i5OHfxebvVHQ/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwZXpcNdqi-pSPNku6gSGDoLtAZO_gQgaZhzEzE1lRrfcWIoGLjBGu7-CGJ6TqDQGlP/exec';
             const submitButton = preRegForm.querySelector('button[type="submit"]');
             
             const formData = new FormData(preRegForm);
@@ -195,6 +200,7 @@
     </script>
 </body>
 </html>
+
 
 
 
