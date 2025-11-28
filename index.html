@@ -1,126 +1,190 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>12:12 로테이션 소개팅 - 사전 신청</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12:12 로테이션 소개팅 - 사전 신청</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4018LH294V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4018LH294V');
+    </script>
 
-<style>
-/* ★ 여기부터 배경 디자인 전체 ★ */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    color: white;
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
 
-    background: radial-gradient(circle at 50% 20%, #1a2339 0%, #0a0f1e 60%, #000 100%);
-    background-attachment: fixed;
-    position: relative;
-    overflow-x: hidden;
-}
+    <style>
+        /* ================================
+           🌌 전체 포스터 분위기 디자인
+           ================================ */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+            background: radial-gradient(circle at 50% 20%, #1a2339 0%, #0a0f1e 60%, #000 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9) 70%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 80% 10%, rgba(255,255,255,0.7) 70%, transparent 100%),
-        radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.6) 70%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 30% 80%, rgba(255,255,255,0.7) 70%, transparent 100%);
-    background-repeat: no-repeat;
-    opacity: 0.5;
-}
+        /* ✨ 별빛 효과 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9) 70%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 80% 10%, rgba(255,255,255,0.7) 70%, transparent 100%),
+                radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.6) 70%, transparent 100%),
+                radial-gradient(1.2px 1.2px at 30% 80%, rgba(255,255,255,0.7) 70%, transparent 100%);
+            background-repeat: no-repeat;
+            opacity: 0.45;
+            pointer-events: none;
+        }
 
-body::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 35%;
-    background: rgba(0,0,0,0.45);
-    mask: linear-gradient(to bottom, black 20%, transparent 80%);
-}
+        /* 🌙 아래쪽 실루엣(그림자) */
+        .silhouette {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 240px;
+            background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0.7), transparent);
+            z-index: 0;
+        }
 
-.silhouette {
-    position: fixed;
-    bottom: 0; left: 0;
-    width: 100%; height: 220px;
-    background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0.7), transparent);
-    z-index: 0;
-}
+        /* ================================
+           📦 컨텐츠 박스
+        ================================ */
+        .overlay {
+            position: relative;
+            z-index: 2;
+            padding: 80px 0 100px;
+            display: flex;
+            justify-content: center;
+        }
 
-/* ★ 내용 컨테이너 ★ */
-.overlay {
-    position: relative;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    z-index: 2;
-}
+        .container {
+            width: 92%;
+            max-width: 680px;
+            background: rgba(0,0,0,0.55);
+            padding: 40px 40px 60px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
 
-.container {
-    width: 92%;
-    max-width: 680px;
-    background: rgba(0,0,0,0.55);
-    padding: 40px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.15);
-    margin: auto;
-    backdrop-filter: blur(6px);
-    text-align: center;
-}
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.7em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6em;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.7);
-}
+        .subtitle {
+            font-size: 1.15em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
 
-.subtitle {
-    font-size: 1.15em;
-    opacity: 0.9;
-    margin-bottom: 30px;
-}
+        /* 행사 정보 박스 */
+        .event-details {
+            margin-top: 25px;
+            text-align: left;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(0,0,0,0.35);
+        }
 
-.event-box {
-    margin-top: 25px;
-    text-align: left;
-    padding: 25px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(0,0,0,0.35);
-}
+        .event-details h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7em;
+            margin-top: 0;
+        }
 
-.event-box h2 {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.7em;
-    margin-top: 0;
-}
+        .event-details p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
 
-.event-box p {
-    font-size: 1.05em;
-    line-height: 1.6;
-}
+        /* ================================
+           🎯 사전신청 버튼
+        ================================ */
+        .cta-button {
+            margin-top: 35px;
+            background: rgba(255,255,255,0.15);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all .3s;
+            backdrop-filter: blur(3px);
+        }
+        .cta-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
 
-.cta-button {
-    margin-top: 30px;
-    background: rgba(255,255,255,0.15);
-    padding: 14px 28px;
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    font-size: 1.2em;
-    cursor: pointer;
-    backdrop-filter: blur(3px);
-}
-.cta-button:hover {
-    background: rgba(255,255,255,0.3);
-}
-</style>
+        /* ================================
+           🪟 모달 (기능 그대로 유지)
+        ================================ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow:auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background: rgba(0,0,0,0.85);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 85%;
+            max-width: 420px;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            color: #fff;
+            backdrop-filter: blur(6px);
+            text-align: center;
+            position:relative;
+        }
+
+        .close-btn {
+            color:#ccc;
+            position:absolute;
+            top:10px;
+            right:20px;
+            font-size:28px;
+            cursor:pointer;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 12px;
+            margin-top: 12px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+            color: white;
+            font-size: 1em;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -128,38 +192,193 @@ h1 {
 <div class="silhouette"></div>
 
 <div class="overlay">
-    <div class="container">
-        <h1>12 : 12 로테이션 소개팅</h1>
-        <p class="subtitle">외모, 성격, 가치관까지 딱 맞는 단 한 사람을 찾기 위한 프라이빗 매칭</p>
+<div class="container">
 
-        <div class="event-box">
-            <h2>✨ 행사 정보 ✨</h2>
-            <p><strong>날짜</strong> : 2025년 12월 6일 (금) 오후 7시</p>
-            <p><strong>장소</strong> : 강남역 인근 파티룸</p>
-            <p><strong>참가비</strong> : 남자 49,900원 / 여자 29,900원</p>
-            <p><strong>조건</strong> : 88–96년생 / 대기업·공기업·전문직 남성, 150cm↑ 여성</p>
-        </div>
+    <h1>12 : 12 로테이션 소개팅</h1>
+    <p class="subtitle">외모, 성격, 가치관까지 딱 맞는 단 한 사람을 찾는 프라이빗 매칭</p>
 
-        <button class="cta-button">사전 신청하기</button>
+    <div class="event-details">
+        <h2>✨ 행사 정보 ✨</h2>
+        <p><strong>일시</strong> : 25년 12월 6일 (금) 저녁 7시</p>
+        <p><strong>장소</strong> : 강남역 인근 파티룸</p>
+        <p><strong>참가비</strong> : 남자 49,900원 / 여자 29,900원</p>
+        <p><strong>조건</strong> : 88~96년생 대기업·공기업·전문직 남성 / 150cm 이상 여성</p>
+    </div>
+
+    <button id="preRegBtn" class="cta-button">사전 신청하기</button>
+
+</div>
+</div>
+
+<!-- ================================
+     📌 사전 신청 모달 (기존 그대로 유지)
+================================ -->
+<div id="formModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeForm">&times;</span>
+        <h2>사전 신청</h2>
+        <p>행사 정보를 가장 먼저 받아보세요!</p>
+
+        <form id="preRegForm">
+            <input type="text" id="name" name="Name" placeholder="이름" required>
+
+            <select id="gender" name="Gender" required>
+                <option value="" disabled selected>성별</option>
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+            </select>
+
+            <select id="status" name="Status" required>
+                <option value="" disabled selected>대학생 / 직장인</option>
+                <option value="student">대학생</option>
+                <option value="worker">직장인</option>
+            </select>
+
+            <input type="number" id="age" name="Age" placeholder="나이 (숫자만 입력)" required>
+            <input type="text" id="school" name="School" placeholder="학교 또는 직장명" required>
+            <input type="email" id="email" name="Email" placeholder="이메일 (인증용)" required>
+            <input type="tel" id="phone" name="Phone" placeholder="전화번호 (010-1234-5678)" required>
+
+            <div id="photo-upload-area" style="display: none;">
+                <label for="photo" style="font-size:0.9em;">사진 업로드</label>
+                <input type="file" id="photo" name="Photo" accept="image/*">
+            </div>
+
+            <button type="submit" class="cta-button">신청 완료</button>
+        </form>
     </div>
 </div>
 
+<!-- 성공 모달 -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <h2>🎉</h2>
+        <p style="font-size:1.2em; font-weight:bold;">사전 신청이 완료되었습니다.</p>
+        <p>행사가 확정되면 입력하신 이메일로 가장 먼저 알려드립니다!</p>
+    </div>
+</div>
+
+<!-- ================================
+     📌 기존 JS 로직 그대로 유지
+================================ -->
+<script>
+    const formModal = document.getElementById('formModal');
+    const successModal = document.getElementById('successModal');
+    const preRegBtn = document.getElementById('preRegBtn');
+    const closeFormBtn = document.getElementById('closeForm');
+    const preRegForm = document.getElementById('preRegForm');
+    const genderSelect = document.getElementById('gender');
+    const statusSelect = document.getElementById('status');
+    const photoUploadArea = document.getElementById('photo-upload-area');
+    const photoLabel = document.querySelector('#photo-upload-area label');
+    const photoInput = document.getElementById('photo');
+
+    function updatePhotoUploadVisibility() {
+        const gender = genderSelect.value;
+        const status = statusSelect.value;
+        const isMaleStudent = gender === 'male' && status === 'student';
+        const isWorker = status === 'worker';
+
+        if (isMaleStudent) {
+            photoLabel.textContent = '사진 업로드 (필수)';
+            photoInput.required = true;
+            photoUploadArea.style.display = 'block';
+        } else if (isWorker) {
+            photoLabel.textContent = '명함 사진 업로드 (필수)';
+            photoInput.required = true;
+            photoUploadArea.style.display = 'block';
+        } else {
+            photoUploadArea.style.display = 'none';
+            photoInput.required = false;
+        }
+    }
+
+    genderSelect.addEventListener('change', updatePhotoUploadVisibility);
+    statusSelect.addEventListener('change', updatePhotoUploadVisibility);
+
+    preRegBtn.onclick = function() {
+        formModal.style.display = "block";
+        gtag('event', 'pre_register_click', {'event_category': 'registration','event_label': '사전 신청 버튼'});
+    }
+
+    closeFormBtn.onclick = function() { formModal.style.display = "none"; }
+
+    window.onclick = function(event) {
+        if (event.target == formModal) formModal.style.display = "none";
+        if (event.target == successModal) successModal.style.display = "none";
+    }
+
+    preRegForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const submitButton = preRegForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = '처리 중...';
+
+        const file = photoInput.files[0];
+
+        if (photoInput.required && !file) {
+            alert('필수 파일을 업로드해주세요.');
+            submitButton.disabled = false;
+            submitButton.textContent = '신청 완료';
+            return;
+        }
+
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => sendData({
+                photoData: reader.result,
+                photoName: file.name,
+                photoType: file.type
+            });
+            reader.onerror = () => {
+                alert('파일을 읽는 데 실패했습니다.');
+                submitButton.disabled = false;
+                submitButton.textContent = '신청 완료';
+            };
+        } else {
+            sendData({});
+        }
+    });
+
+    function sendData(photoInfo) {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwZXpcNdqi-pSPNku6gSGDoLtAZO_gQgaZhzEzE1lRrfcWIoGLjBGu7-CGJ6TqDQGlP/exec';
+        const submitButton = preRegForm.querySelector('button[type="submit"]');
+
+        const formData = new FormData(preRegForm);
+        let data = {};
+        formData.forEach((value, key) => data[key] = value);
+        data = { ...data, ...photoInfo };
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            console.log('Request sent successfully.');
+            gtag('event', 'registration_complete', {'event_category': 'registration','event_label': '최종 신청 완료'});
+
+            formModal.style.display = "none";
+            successModal.style.display = "block";
+
+            preRegForm.reset();
+            photoUploadArea.style.display = 'none';
+
+            submitButton.disabled = false;
+            submitButton.textContent = '신청 완료';
+        })
+        .catch(error => {
+            console.error('Error!', error);
+            alert('신청서 제출에 실패했습니다.');
+            submitButton.disabled = false;
+            submitButton.textContent = '신청 완료';
+        });
+    }
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
