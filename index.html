@@ -188,13 +188,16 @@
             background: rgba(0,0,0,0.8);
         }
 
-        /* 모달 */
+        /* ============================
+           모달 (위로 조금 올리고, 내부 스크롤 가능)
+        ============================ */
         .modal {
             display: none;
             position: fixed;
             z-index: 5;
             inset: 0;
             background-color: rgba(0,0,0,0.75);
+            overflow-y: auto; /* 화면 작을 때 모달 내부 스크롤 */
         }
 
         .modal-content {
@@ -202,7 +205,7 @@
             border: 1px solid rgba(255,255,255,0.20);
             width: 85%;
             max-width: 420px;
-            margin: 10% auto;
+            margin: 60px auto 40px; /* ⬅ 원래 10% auto였던 걸 위로 끌어올림 */
             padding: 30px;
             border-radius: 15px;
             color: #fff;
@@ -358,12 +361,12 @@
             const isWorker        = status === 'worker';
 
             if (isMaleStudent) {
-                // 남자 대학생: 기존처럼 사진 업로드 (필수)
+                // 남자 대학원생: 사진 업로드 (필수)
                 photoLabel.textContent = '사진 업로드 (필수)';
                 photoInput.required = true;
                 photoUploadArea.style.display = 'block';
             } else if (isFemaleStudent) {
-                // ✅ 새로 추가: 여자 대학생 → 학생증 사진 업로드 (필수)
+                // 여자 대학원생 → 학생증 사진 업로드 (필수)
                 photoLabel.textContent = '학생증 사진 업로드 (필수)';
                 photoInput.required = true;
                 photoUploadArea.style.display = 'block';
@@ -373,7 +376,7 @@
                 photoInput.required = true;
                 photoUploadArea.style.display = 'block';
             } else {
-                // 그 외 조합: 업로드 선택 안 받음
+                // 그 외 조합: 업로드 X
                 photoUploadArea.style.display = 'none';
                 photoInput.required = false;
                 photoInput.value = '';
@@ -465,6 +468,7 @@
 
 </body>
 </html>
+
 
 
 
